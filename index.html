@@ -6,6 +6,38 @@
 </head>
 <script>
 $(document).ready(function(){
+    function mySuccess(jsonp){
+        var counter = 1;
+        var celsius = jsonp.main.temp;
+        var fahrenheit = celsius * (9/5) + 32;
+        $('h3').html(celsius + " C°");
+        console.log(celsius, fahrenheit);
+        function celsiusOn(celsius){
+            $('h3').html(celsius + " C°");
+            }
+        function celsiusOff(fahrenheit){
+            $('h3').html(fahrenheit + " F°");
+            }
+        $('input').on('click', function(){
+            if (counter % 2 == 1){
+                celsiusOff(fahrenheit);
+                if (fahrenheit > 50){
+                    $('img').attr('src', 'https://i.ytimg.com/vi/0sLPgzL-0JM/maxresdefault.jpg');
+                } else{
+                    $('img').attr('src', 'https://d2gg9evh47fn9z.cloudfront.net/800px_COLOURBOX2841811.jpg');
+                }
+                counter += 1;
+            } else {
+                celsiusOn(celsius);
+                if (celsius > 10){
+                    $('a').attr('src', 'https://i.ytimg.com/vi/0sLPgzL-0JM/maxresdefault.jpg');
+                } else{
+                        $('a').attr('src', 'https://d2gg9evh47fn9z.cloudfront.net/800px_COLOURBOX2841811.jpg');
+                }
+                counter += 1;
+            }
+        });
+    }
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(function(position) {
         $("#data").html('Your coordinates are:<br>latitude: $1<br>longitude: $2'.replace('$1', position.coords.latitude).replace('$2', position.coords.longitude));
@@ -13,12 +45,7 @@ $(document).ready(function(){
            url: "https://fcc-weather-api.glitch.me/api/current?lat=$3&lon=$4".replace('$3', position.coords.latitude).replace('$4', position.coords.longitude),
            type: "GET",
            dataType: "jsonp",
-           success: function(jsonp){
-               $('h3').html(jsonp.main.temp + " C°");
-               var fahrenheit = jsonp.main.temp * (9/5) + 32;
-               var celsius = jsonp.main.temp;
-
-           },
+           success: mySuccess,
            error: function(jsonp){
                alert('error!');
            }
@@ -111,7 +138,6 @@ input:checked + .slider:before {
     <h2 id="data" style="color: white"><h2>
     <h3 ></h3>
     <center style="color: white">Switch between Fahrenheit and Celsius!</br><label class="switch center-block"><input type="checkbox"><span class="slider round"></span></label><center>
-    <button class='convert btn center-block'>Convert!</button>
-
+    <img src="https://topbackgroundwallpaper.com/wp-content/uploads/2018/01/flat-black-wallpaper-wallpaper-texture-background-black-matte-perforation-wallpapers41.jpg" width="50" height="30">
 </div>
 </html>
