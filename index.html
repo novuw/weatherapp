@@ -8,12 +8,12 @@
 $(document).ready(function(){
     function mySuccess(jsonp){
         var counter = 1;
-        var celsius = jsonp.main.temp;
+        var celsius = Math.floor(jsonp.main.temp);
         var fahrenheit = celsius * (9/5) + 32;
-        $('h3').html(math.floor(celsius) + " C°");
+        $('h3').html(celsius + " C°");
         console.log(celsius, fahrenheit);
         function celsiusOn(celsius){
-            $('h3').html(Math.floor(celsius) + " C°");
+            $('h3').html(celsius + " C°");
             }
         function celsiusOff(fahrenheit){
             $('h3').html(Math.floor(fahrenheit) + " F°");
